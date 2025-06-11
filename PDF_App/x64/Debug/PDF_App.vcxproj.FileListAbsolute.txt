@@ -1,0 +1,3 @@
+C:\Users\sofia\source\repos\PDF_App\PDF_App\x64\Debug\PDF_App.vcxproj.AssemblyReference.cache
+C:\Users\sofia\source\repos\PDF_App\PDF_App\x64\Debug\PDF_App.vcxproj.GenerateResource.cache
+C:\Users\sofia\source\repos\PDF_App\PDF_App\x64\Debug\PDFApp.MyForm.resources

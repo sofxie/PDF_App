@@ -22,5 +22,3 @@ int main(array<String^>^ args) {
 
 	return 0;
 }
-
-//hola

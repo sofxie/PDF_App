@@ -10,7 +10,7 @@ using namespace std;
 #define addr "127.0.0.1" // Direccion del server con PDF App
 #define port 8080 // Puerto con server
 
-void ConeccionHTTP::run(){
+void ConeccionHTTP::run(std::string command, std::string name, std::string path){
     WSADATA wsaData;
     SOCKET sock;
     struct sockaddr_in server;
@@ -43,9 +43,9 @@ void ConeccionHTTP::run(){
     }
 
     // Construir cuerpo JSON
-    j["comando"] = "guardar";
-    j["nombre"] = "documento.pdf";
-    j["contenido"] = "Datos";
+    j["comando"] = command;
+    j["nombre"] = name;
+    j["contenido"] = path;
 
     body = j.dump();  // Convertir JSON a string
 
@@ -69,7 +69,7 @@ void ConeccionHTTP::run(){
     char buffer[4096];
     int bytesReceived;
     while ((bytesReceived = recv(sock, buffer, sizeof(buffer) - 1, 0)) > 0) {
-        buffer[bytesReceived] = '\0';  // Null-terminate the received data
+        buffer[bytesReceived] = '\0';  
         cout << buffer;
     }
 
@@ -80,4 +80,4 @@ void ConeccionHTTP::run(){
     // Cerrar socket y limpiar Winsock
     closesocket(sock);
     WSACleanup();
-    }
+}

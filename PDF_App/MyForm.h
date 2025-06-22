@@ -2,6 +2,7 @@
 #include "ConeccionHTTP.h"
 // de String^ a std::string
 #include <msclr/marshal_cppstd.h>
+#include "listasPDF.h"
 
 namespace PDFApp {
 
@@ -209,6 +210,9 @@ namespace PDFApp {
 			std::string name = msclr::interop::marshal_as<std::string>(nombreArchivo);
 			std::string path = msclr::interop::marshal_as<std::string>(dialogo->FileName);
 
+			// Guardar ruta en arreglo
+			agregarRutaPDF(name.c_str());
+
 			// Enviar Archivo al Controller node
 			conn->run("save", name, path);
 		}
@@ -236,8 +240,29 @@ private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e
 	}
 }
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	using namespace msclr::interop;
 
+	// Obtener texto del textbox
+	String^ texto = textBox1->Text;
+
+	if (String::IsNullOrWhiteSpace(texto)) {
+		MessageBox::Show("Por favor ingresa la ruta a buscar.", "Aviso", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
+
+	// Convertir a std::string y luego a const char*
+	std::string rutaBuscar = marshal_as<std::string>(texto);
+	const char* ruta = rutaBuscar.c_str();
+
+	// Buscar en la lista
+	if (rutaExisteEnLista(ruta)) {
+		MessageBox::Show("El archivo fue encontrado en la lista.", "Encontrado", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	else {
+		MessageBox::Show("El archivo no está en la lista.", "No encontrado", MessageBoxButtons::OK, MessageBoxIcon::Exclamation);
+	}
 }
+
 private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (listView1->SelectedItems->Count > 0)
 	{

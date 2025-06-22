@@ -46,7 +46,7 @@ void ConeccionHTTP::run(std::string command, std::string name, std::string path)
     }
 
     // Construir cuerpo JSON
-    j["comando"] = command;
+    j["accion"] = command;
     j["nombre"] = name;
     j["contenido"] = path;
 
@@ -76,6 +76,7 @@ void ConeccionHTTP::run(std::string command, std::string name, std::string path)
     while ((bytesReceived = recv(sock, buffer, sizeof(buffer) - 1, 0)) > 0) {
         buffer[bytesReceived] = '\0';  
         cout << buffer;
+        response += buffer;
     }
 
     if (bytesReceived < 0) {

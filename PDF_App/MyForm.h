@@ -127,6 +127,7 @@ namespace PDFApp {
 			this->button2->TabIndex = 2;
 			this->button2->Text = L"Search";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
 			// textBox1
 			// 
@@ -154,6 +155,7 @@ namespace PDFApp {
 			this->button4->TabIndex = 6;
 			this->button4->Text = L"Delete";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MyForm::button4_Click);
 			// 
 			// button5
 			// 
@@ -163,6 +165,7 @@ namespace PDFApp {
 			this->button5->TabIndex = 7;
 			this->button5->Text = L"Download";
 			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MyForm::button5_Click);
 			// 
 			// MyForm
 			// 
@@ -211,5 +214,47 @@ namespace PDFApp {
 		}
 
 	}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (listView1->SelectedItems->Count > 0)
+	{
+		ListViewItem^ selectedItem = listView1->SelectedItems[0];
+
+		String^ nombre = selectedItem->SubItems[0]->Text;
+		String^ direccion = selectedItem->SubItems[1]->Text;
+
+		std::string name = msclr::interop::marshal_as<std::string>(nombre);
+		std::string path = msclr::interop::marshal_as<std::string>(direccion);
+
+		// Enviar Archivo al Controller node
+		conn->run("delete", name, path);
+
+		// Eliminar de la interfaz también
+		listView1->Items->Remove(selectedItem);
+	}
+	else {
+		MessageBox::Show("Selecciona un archivo de la lista para eliminar.");
+	}
+}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+}
+private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (listView1->SelectedItems->Count > 0)
+	{
+		ListViewItem^ selectedItem = listView1->SelectedItems[0];
+
+		String^ nombre = selectedItem->SubItems[0]->Text;
+		String^ ruta = selectedItem->SubItems[1]->Text;
+
+		std::string name = msclr::interop::marshal_as<std::string>(nombre);
+		std::string path = msclr::interop::marshal_as<std::string>(ruta);
+
+		// Enviar Archivo al Controller node
+		conn->run("download", name, path);
+
+	}else {
+		MessageBox::Show("Selecciona un archivo de la lista para eliminar.");
+	}
+}
 };
 }

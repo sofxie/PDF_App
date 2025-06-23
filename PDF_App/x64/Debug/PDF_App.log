@@ -1,0 +1,7 @@
+﻿  ConeccionHTTP.cpp
+C:\Users\sofia\source\repos\PDF_App\PDF_App\ConeccionHTTP.cpp(62,51): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\sofia\source\repos\PDF_App\PDF_App\ConeccionHTTP.cpp(36,30): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  main.cpp
+  Generating Code...
+  ConeccionHTTP.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  PDF_App.vcxproj -> C:\Users\sofia\source\repos\PDF_App\x64\Debug\PDF_App.exe
